@@ -1,15 +1,5 @@
 {
-    "redirects": [
-        {
-            "source": "/",
-            "destination": "/adlogin",
-            "permanent": false
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/"
-        }
-    ]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

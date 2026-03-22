@@ -68,6 +68,7 @@ function App() {
           <Route path="examination" element={<Examination />} />
           <Route path="report" element={<Report />} />
           <Route path="result" element={<ExamResultsDeclaration />} />
+          <Route path="payments" element={<AdminPayments />} />
           <Route path="contact" element={<Contact />} />
           <Route path="password" element={<Password />} />
         </Route>
@@ -80,7 +81,7 @@ function App() {
           <Route path="notes" element={<UserNotes />} />
           <Route path="my-batches" element={<MyBatches />} />
           <Route path="batch/:id" element={<BatchDetails />} />
-          <Route path="contact1" element={<ContactA />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="myexam" element={<MyExam />} />
           <Route path="profile" element={<Profile />} />
           <Route path="getexam/:id" element={<GetExam />} />

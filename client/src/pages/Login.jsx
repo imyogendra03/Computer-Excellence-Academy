@@ -357,9 +357,6 @@ const Login = () => {
             <p>
               Don't have an account? <Link to="/register">Register here</Link>
             </p>
-            <p>
-              Admin login? <Link to="/adlogin">Click here</Link>
-            </p>
           </div>
         </div>
       </div>
