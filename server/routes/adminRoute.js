@@ -1,5 +1,6 @@
 const Admin = require("../models/Admin");
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 
@@ -7,23 +8,24 @@ const bcrypt = require("bcryptjs");
 router.post("/", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Registering:", email);
 
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    const hashed = await bcrypt.hash(password, 10);
-    const admin = await Admin.create({ email, password: hashed });
+    // DISABLE BCRYPT FOR TEST
+    const admin = await Admin.create({ email, password: password });
 
     return res.status(201).json({
       success: true,
-      message: "Admin registered successfully",
+      message: "Admin registered successfully (PLAIN TEXT)",
       admin: { id: admin._id, email: admin.email }
     });
   } catch (error) {
-    console.error("Admin register error:", error);
-    return res.status(500).json({ message: "Register server error" });
+    console.error("Admin register error:", error.message);
+    return res.status(500).json({ message: "Register server error: " + error.message });
   }
 });
 
@@ -32,12 +34,20 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(500).json({ 
+            message: "Database not connected", 
+            state: mongoose.connection.readyState 
+        });
+    }
+
     const admin = await Admin.findOne({ email });
     if (!admin) {
       return res.status(404).json({ message: "Admin not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, admin.password);
+    // Check plain text or bcrypt
+    const isMatch = (password === admin.password) || (await bcrypt.compare(password, admin.password));
     if (!isMatch) {
       return res.status(400).json({ message: "Username or password Incorrect" });
     }
@@ -51,8 +61,8 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Admin login error:", error);
-    return res.status(500).json({ message: "Login server error" });
+    console.error("Admin login error:", error.message);
+    return res.status(500).json({ message: "Login server error: " + error.message });
   }
 });
 
