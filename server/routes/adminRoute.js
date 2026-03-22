@@ -14,17 +14,16 @@ router.post("/", async (req, res) => {
     }
 
     const hashed = await bcrypt.hash(password, 10);
-    const admin = new Admin({ email, password: hashed });
-    await admin.save();
+    const admin = await Admin.create({ email, password: hashed });
 
     return res.status(201).json({
       success: true,
       message: "Admin registered successfully",
-      data: admin,
+      admin: { id: admin._id, email: admin.email }
     });
   } catch (error) {
     console.error("Admin register error:", error);
-    return res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Register server error" });
   }
 });
 
@@ -43,11 +42,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Username or password Incorrect" });
     }
 
-    if (admin.lastLoginAt !== undefined || true) {
-      admin.lastLoginAt = new Date();
-      await admin.save();
-    }
-
     return res.json({
       message: "Login Successfully",
       admin: {
@@ -58,7 +52,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error("Admin login error:", error);
-    return res.status(500).json({ message: "Server error during login" });
+    return res.status(500).json({ message: "Login server error" });
   }
 });
 
