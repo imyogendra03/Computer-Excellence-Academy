@@ -16,7 +16,7 @@ import {
 
 
 const UserDash = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate();
 
   const role = localStorage.getItem("userRole");
@@ -452,6 +452,7 @@ const UserDash = () => {
                 key={item.to}
                 to={item.to}
                 end={item.to === "/userdash"}
+                onClick={() => setCollapsed(true)}
                 className={({ isActive }) =>
                   `userdash-link ${isActive ? "active-link" : ""}`
                 }

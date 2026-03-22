@@ -18,7 +18,7 @@ import {
 } from "react-icons/fi";
 
 const Dashboard = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const navigate = useNavigate();
 
   const role = localStorage.getItem("role");
@@ -273,6 +273,7 @@ const Dashboard = () => {
                 key={item.to}
                 to={item.to}
                 end={item.to === "/admin"}
+                onClick={() => setCollapsed(true)}
                 className={({ isActive }) =>
                   `admin-nav-link ${isActive ? "active" : ""}`
                 }
