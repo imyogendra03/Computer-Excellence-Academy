@@ -75,16 +75,17 @@ function App() {
 
         {/* User Dashboard Routes */}
         <Route path="/UserDash" element={<UserDash />}>
-        <Route path="payments" element={<UserPayments />} />
+       
           <Route index element={<UserHome />} />
           <Route path="courses" element={<UserCourses />} />
           <Route path="notes" element={<UserNotes />} />
           <Route path="my-batches" element={<MyBatches />} />
           <Route path="batch/:id" element={<BatchDetails />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="contact1" element={<ContactA />} />
           <Route path="myexam" element={<MyExam />} />
           <Route path="profile" element={<Profile />} />
           <Route path="getexam/:id" element={<GetExam />} />
+          <Route path="payments" element={<UserPayments />} />
           <Route path="chanpass" element={<Chanpass />} />
           <Route path="results" element={<Result />} />
         </Route>
