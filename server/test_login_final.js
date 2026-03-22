@@ -6,9 +6,9 @@ const testLogin = async () => {
             email: "admin@cea.com",
             password: "admin123"
         });
-        console.log("✅ Login Success:", res.data);
+        console.log("✅ LIVE Login Success:", res.data);
     } catch (err) {
-        console.error("❌ Login Failed:", err.response ? err.response.data : err.message);
+        console.error("❌ LIVE Login Failed:", err.response ? err.response.data : err.message);
     }
 };
 

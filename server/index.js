@@ -38,7 +38,7 @@ app.use("/api/payment", require("./routes/paymentRoute"));
 app.get("/", (req, res) => {
   return res.json({
     success: true,
-    message: "ExamPrep backend is running successfully",
+    message: "Computer Excellance Academy backend is running successfully",
   });
 });
 
