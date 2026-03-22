@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Username or password Incorrect" });
     }
 
-    if ("lastLoginAt" in admin) {
+    if (admin.lastLoginAt !== undefined || true) {
       admin.lastLoginAt = new Date();
       await admin.save();
     }

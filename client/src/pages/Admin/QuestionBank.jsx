@@ -52,8 +52,8 @@ const QuestionBank = () => {
     try {
       setFetching(true);
       const [questionRes, subjectRes] = await Promise.all([
-        axios.get("https://computer-excellance-academy.onrender.com/api/question"),
-        axios.get("https://computer-excellance-academy.onrender.com/api/subject"),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/question`),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/subject`),
       ]);
 
       setQuestions(questionRes?.data?.data || []);
@@ -128,12 +128,12 @@ const QuestionBank = () => {
 
       if (isEditing) {
         await axios.put(
-          `https://computer-excellance-academy.onrender.com/api/question/${editingId}`,
+          `${import.meta.env.VITE_API_URL}/api/question/${editingId}`,
           formData
         );
         showToast("Question updated successfully");
       } else {
-        await axios.post("https://computer-excellance-academy.onrender.com/api/question", formData);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/question`, formData);
         showToast("Question added successfully");
       }
 
@@ -153,7 +153,7 @@ const QuestionBank = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`https://computer-excellance-academy.onrender.com/api/question/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/question/${id}`);
       showToast("Question deleted successfully");
       fetchData();
     } catch (error) {

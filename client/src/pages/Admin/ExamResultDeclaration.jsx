@@ -34,7 +34,7 @@ const ExamResultsDeclaration = () => {
   const fetchExamResults = async () => {
     try {
       setFetching(true);
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/exams/examination");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/exams/examination`);
       setExamResults(res?.data?.message || []);
     } catch (error) {
       showToast("Failed to load exam results", "error");
@@ -51,7 +51,7 @@ const ExamResultsDeclaration = () => {
     try {
       setDeclaringId(examResultId);
       const response = await axios.post(
-        `https://computer-excellance-academy.onrender.com/api/exams/result/${examResultId}`
+        `${import.meta.env.VITE_API_URL}/api/exams/result/${examResultId}`
       );
       showToast(response?.data?.message || "Result declared successfully");
       fetchExamResults();

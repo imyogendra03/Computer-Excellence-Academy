@@ -38,8 +38,8 @@ const AdminHome = () => {
       setLoading(true);
 
       const [dashboardRes, examsRes] = await Promise.all([
-        axios.get("https://computer-excellance-academy.onrender.com/api/dashboard/"),
-        axios.get("https://computer-excellance-academy.onrender.com/api/exams/exams"),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/dashboard/`),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/exams/exams`),
       ]);
 
       setDashboard(dashboardRes?.data || {});

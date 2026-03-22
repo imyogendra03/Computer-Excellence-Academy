@@ -48,8 +48,8 @@ const UserHome = () => {
       setLoading(true);
 
       const [examRes, resultRes] = await Promise.all([
-        fetch(`https://computer-excellance-academy.onrender.com/api/dashboard/exams/${examineId}`),
-        axios.get(`https://computer-excellance-academy.onrender.com/api/dashboard/examinee-result/${examineId}`),
+        fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/exams/${examineId}`),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/dashboard/examinee-result/${examineId}`),
       ]);
 
       const examData = await examRes.json();

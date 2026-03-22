@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 /* ══════════════════════════════════════════
    Course.jsx — Public course listing + batch purchase flow
@@ -590,20 +590,20 @@ const handleBuyNow = async (batch) => {
       )}
 
       <nav className={`cea-nav ${scrollY > 15 ? "scrolled" : "top"}`}>
-        <a href="/" className="nav-logo">
+        <Link to="/" className="nav-logo">
           <div className="nav-logo-orb">💻</div>
           <div className="nav-logo-text">
             <span className="nav-logo-main">Computer Excellence Academy</span>
             <span className="nav-logo-sub">Digital Learning Platform</span>
             <div className="nav-logo-line" />
           </div>
-        </a>
+        </Link>
 
         <ul className="nav-menu">
           {navLinks.map(({ label, href, icon, badge }) => (
             <li key={href}>
-              <a
-                href={href}
+              <Link
+                to={href}
                 className={
                   window.location.pathname === href ||
                   (href === "/courses" && window.location.pathname === "/course")
@@ -613,13 +613,13 @@ const handleBuyNow = async (batch) => {
               >
                 {icon} {label}
                 {badge && <span className="nav-badge">{badge}</span>}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
-            <a href="#" style={{ color: "#f7156a" }}>
+            <Link to="#" style={{ color: "#f7156a" }}>
               <span className="live-dot" /> Live Class
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -654,9 +654,9 @@ const handleBuyNow = async (batch) => {
 
         <div className="mob-links">
           {navLinks.map(({ label, href, icon, badge }) => (
-            <a
+            <Link
               key={href}
-              href={href}
+              to={href}
               className={`mob-link ${
                 window.location.pathname === href ||
                 (href === "/courses" && window.location.pathname === "/course")
@@ -669,14 +669,14 @@ const handleBuyNow = async (batch) => {
                 {badge && <span className="nav-badge">{badge}</span>}
               </span>
               <span className="mob-chevron">›</span>
-            </a>
+            </Link>
           ))}
-          <a href="#" className="mob-link" style={{ color: "#f7156a" }}>
+          <Link to="#" className="mob-link" style={{ color: "#f7156a" }}>
             <span className="mob-link-left">
               <span className="live-dot" /> Live Class
             </span>
             <span className="mob-chevron">›</span>
-          </a>
+          </Link>
         </div>
 
         <div className="mob-hr" />
@@ -900,16 +900,15 @@ const handleBuyNow = async (batch) => {
           <div>
             <div className="ft-h">Quick Links</div>
             <ul className="ft-l">
-              <li><a href="/">Home</a></li>
-              <li><a href="/courses">All Courses</a></li>
-              <li><a href="/notes">PDF Notes</a></li>
-              <li><a href="/aboutus">About Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/courses">Courses</Link></li>
+              <li><Link to="/notes">Notes</Link></li>
+              <li><Link to="/aboutus">About Us</Link></li>
             </ul>
           </div>
           <div>
             <div className="ft-h">Learner Flow</div>
             <ul className="ft-l">
-              <li><a href="/courses">Explore Courses</a></li>
               <li><a href="/login">Login</a></li>
               <li><a href="/userdash/my-batches">My Batches</a></li>
             </ul>

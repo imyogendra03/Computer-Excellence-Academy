@@ -34,7 +34,7 @@ import AdminNotes from "./pages/Admin/AdminNotes";
 import Component from "./pages/Component";
 import UserHome from "./pages/User/UserHome";
 import AboutUs from "./pages/AboutUs";
-import { Notes } from "./pages/notes";
+import { Notes } from "./pages/Notes";
 import Course from "./pages/Course";
 import UserCourses from "./pages/User/UserCourses";
 import UserNotes from "./pages/User/UserNotes";

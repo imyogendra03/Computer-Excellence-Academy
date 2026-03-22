@@ -9,9 +9,13 @@ router.post('/', async(req , res)=>{
 })
 
 router.get('/', async(req , res)=>{
-    const session =  await Session.find();
-
-    return res.json({data:session})
+    try {
+        const session =  await Session.find();
+        return res.json({data:session})
+    } catch (error) {
+        console.error("Fetch sessions error:", error);
+        return res.status(500).json({ success: false, message: "Database error fetching sessions" });
+    }
 });
 
 router.delete('/:id',async(req,res)=>{

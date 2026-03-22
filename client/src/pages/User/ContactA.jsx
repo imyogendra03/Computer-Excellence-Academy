@@ -34,7 +34,7 @@ const ContactA = () => {
   const fetchUserMessages = async () => {
     if (!userId) return;
     try {
-      const res = await axios.get(`https://computer-excellance-academy.onrender.com/api/message/user/${userId}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/message/user/${userId}`);
       setMessages(res?.data?.message || []);
     } catch (err) {
       showToast("Failed to load messages", "error");
@@ -58,7 +58,7 @@ const ContactA = () => {
 
     try {
       setSending(true);
-      await axios.post("https://computer-excellance-academy.onrender.com/api/message", {
+      await axios.post("${import.meta.env.VITE_API_URL}/api/message", {
         question,
         examineeId: userId,
       });
@@ -89,7 +89,7 @@ const ContactA = () => {
     }
 
     try {
-      await axios.put(`https://computer-excellance-academy.onrender.com/api/message/edit/${editingMessage._id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/message/edit/${editingMessage._id}`, {
         question: editText,
         role: "user",
         userId,
@@ -107,7 +107,7 @@ const ContactA = () => {
     if (!confirmed) return;
 
     try {
-      await axios.put(`https://computer-excellance-academy.onrender.com/api/message/delete/${id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/message/delete/${id}`, {
         role: "user",
         userId,
       });

@@ -17,7 +17,7 @@ const AdminPayments = () => {
   const fetchPayments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/payment");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/payment`);
       setPayments(res.data?.data || []);
     } catch {
       showToast("Payments load nahi ho paaye", "error");

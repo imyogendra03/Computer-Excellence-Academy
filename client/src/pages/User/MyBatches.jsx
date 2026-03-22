@@ -35,7 +35,7 @@ const MyBatches = () => {
       setFetching(true);
 
       const res = await axios.get(
-        `https://computer-excellance-academy.onrender.com/api/examinee/${userId}/my-batches`
+        `${import.meta.env.VITE_API_URL}/api/examinee/${userId}/my-batches`
       );
 
       setBatches(res?.data?.data || []);

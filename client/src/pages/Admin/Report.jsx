@@ -9,7 +9,7 @@ const Report = () => {
   const fetchReports = async () => {
     try {
       setFetching(true);
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/exams/report");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/exams/report`);
       setReports(res?.data || []);
     } catch (error) {
       alert("Sorry, fetching reports failed.");

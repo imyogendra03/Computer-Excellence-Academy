@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 
 const Home = () => {
@@ -617,20 +617,20 @@ const Home = () => {
       `}</style>
 
       <nav className={`cea-nav ${scrollY > 15 ? "scrolled" : "top"}`}>
-        <a href="/" className="nav-logo">
+        <Link to="/" className="nav-logo">
           <div className="nav-logo-orb">💻</div>
           <div className="nav-logo-text">
             <span className="nav-logo-main">Computer Excellence Academy</span>
             <span className="nav-logo-sub">Digital Learning Platform</span>
             <div className="nav-logo-line" />
           </div>
-        </a>
+        </Link>
 
         <ul className="nav-menu">
           {navLinks.map(({ label, href, icon, badge }) => (
             <li key={href}>
-              <a
-                href={href}
+              <Link
+                to={href}
                 className={
                   window.location.pathname === href ||
                   (href === "/courses" && window.location.pathname === "/course")
@@ -640,13 +640,13 @@ const Home = () => {
               >
                 {icon} {label}
                 {badge && <span className="nav-badge">{badge}</span>}
-              </a>
+              </Link>
             </li>
           ))}
           <li>
-            <a href="#" style={{ color: "#f7156a" }}>
+            <Link to="#" style={{ color: "#f7156a" }}>
               <span className="live-dot" /> Live Class
-            </a>
+            </Link>
           </li>
         </ul>
 
@@ -684,9 +684,9 @@ const Home = () => {
 
         <div className="mob-links">
           {navLinks.map(({ label, href, icon, badge }) => (
-            <a
+            <Link
               key={href}
-              href={href}
+              to={href}
               className={`mob-link ${
                 window.location.pathname === href ||
                 (href === "/courses" && window.location.pathname === "/course")
@@ -699,14 +699,14 @@ const Home = () => {
                 {badge && <span className="nav-badge">{badge}</span>}
               </span>
               <span className="mob-chevron">›</span>
-            </a>
+            </Link>
           ))}
-          <a href="#" className="mob-link" style={{ color: "#f7156a" }}>
+          <Link to="#" className="mob-link" style={{ color: "#f7156a" }}>
             <span className="mob-link-left">
               <span className="live-dot" /> Live Class
             </span>
             <span className="mob-chevron">›</span>
-          </a>
+          </Link>
         </div>
 
         <div className="mob-hr" />
@@ -788,11 +788,11 @@ const Home = () => {
         </div>
         <div className="category-grid">
           {examCategories.map((cat, i) => (
-            <a href="/courses" className="category-pill" key={i}>
+            <Link to="/courses" className="category-pill" key={i}>
               <div className="cat-icon">{cat.icon}</div>
               <div className="cat-name">{cat.name}</div>
               <div className="cat-count">{cat.count}</div>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -929,10 +929,10 @@ const Home = () => {
           <div>
             <div className="footer-heading">Quick Links</div>
             <ul className="footer-links">
-              <li><a href="/">Home</a></li>
-              <li><a href="/courses">All Courses</a></li>
-              <li><a href="/notes">PDF Notes</a></li>
-              <li><a href="/aboutus">About Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/courses">Courses</Link></li>
+              <li><Link to="/notes">Notes</Link></li>
+              <li><Link to="/aboutus">About Us</Link></li>
             </ul>
           </div>
           <div>

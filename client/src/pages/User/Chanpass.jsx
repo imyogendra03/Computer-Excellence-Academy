@@ -71,7 +71,7 @@ const Chanpass = () => {
 
     try {
       setSaving(true);
-      await axios.put(`https://computer-excellance-academy.onrender.com/api/examinee/change/${userId}`, data);
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/examinee/change/${userId}`, data);
       showToast("Password changed successfully");
       resetForm();
     } catch (error) {

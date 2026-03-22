@@ -41,7 +41,7 @@ const GetExam = () => {
     const fetchExam = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`https://computer-excellance-academy.onrender.com/api/exams/exam/${examId}`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/exams/exam/${examId}`);
         const { exam: examData, questions: questionData } = res.data;
 
         setExam(examData);
@@ -95,7 +95,7 @@ const GetExam = () => {
     try {
       setSubmitting(true);
 
-      const res = await axios.post("https://computer-excellance-academy.onrender.com/api/exams/submit-exam", {
+      const res = await axios.post("${import.meta.env.VITE_API_URL}/api/exams/submit-exam", {
         examId,
         answers,
         email,

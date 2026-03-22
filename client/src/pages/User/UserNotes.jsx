@@ -20,7 +20,7 @@ const UserNotes = () => {
 
   const fetchPurchasedBatches = async () => {
     try {
-      const res = await axios.get(`https://computer-excellance-academy.onrender.com/api/examinee/${userId}/my-batches`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/examinee/${userId}/my-batches`);
       const batches = res?.data?.data || [];
       const courseIds = batches.map((b) => String(b.course?._id || b.course));
       setPurchasedCourseIds(courseIds);
@@ -29,7 +29,7 @@ const UserNotes = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/course");
+      const res = await axios.get("${import.meta.env.VITE_API_URL}/api/course");
       setCourses(res.data?.data || []);
     } catch {}
   };
@@ -37,7 +37,7 @@ const UserNotes = () => {
   const fetchNotes = async () => {
     try {
       setLoading(true);
-      let url = "https://computer-excellance-academy.onrender.com/api/notes/user?";
+      let url = "${import.meta.env.VITE_API_URL}/api/notes/user?";
       if (filterCourse) url += `courseId=${filterCourse}&`;
       if (filterType) url += `type=${filterType}&`;
       if (filterSubject) url += `subject=${filterSubject}`;

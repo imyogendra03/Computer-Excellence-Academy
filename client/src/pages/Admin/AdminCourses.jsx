@@ -57,7 +57,7 @@ const AdminCourses = () => {
   const fetchCourses = async () => {
     try {
       setFetching(true);
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/course");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/course`);
       setCourses(res?.data?.data || []);
     } catch (error) {
       showToast("Failed to load courses", "error");
@@ -129,10 +129,10 @@ const AdminCourses = () => {
       };
 
       if (isEditing) {
-        await axios.put(`https://computer-excellance-academy.onrender.com/api/course/${editingId}`, payload);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/course/${editingId}`, payload);
         showToast("Course updated successfully");
       } else {
-        await axios.post("https://computer-excellance-academy.onrender.com/api/course", payload);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/course`, payload);
         showToast("Course added successfully");
       }
 
@@ -153,7 +153,7 @@ const AdminCourses = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`https://computer-excellance-academy.onrender.com/api/course/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/course/${id}`);
       showToast("Course deleted successfully");
       fetchCourses();
     } catch (error) {

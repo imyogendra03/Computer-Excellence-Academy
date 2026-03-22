@@ -36,7 +36,7 @@ const AdminNotes = () => {
   const fetchNotes = async () => {
     try {
       setLoading(true);
-      let url = "https://computer-excellance-academy.onrender.com/api/notes?";
+      let url = `${import.meta.env.VITE_API_URL}/api/notes?`;
       if (filterCourse) url += `courseId=${filterCourse}&`;
       if (filterType) url += `type=${filterType}`;
       const res = await axios.get(url);
@@ -50,7 +50,7 @@ const AdminNotes = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/course");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/course`);
       setCourses(res.data?.data || []);
     } catch {}
   };
@@ -98,7 +98,7 @@ const AdminNotes = () => {
       const formData = new FormData();
       formData.append("pdf", pdfFile);
       const res = await axios.post(
-        "https://computer-excellance-academy.onrender.com/api/notes/upload-pdf",
+        `${import.meta.env.VITE_API_URL}/api/notes/upload-pdf`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -120,10 +120,10 @@ const AdminNotes = () => {
       const payload = { ...form, fileUrl };
 
       if (editId) {
-        await axios.put(`https://computer-excellance-academy.onrender.com/api/notes/${editId}`, payload);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/notes/${editId}`, payload);
         showToast("Note updated successfully");
       } else {
-        await axios.post("https://computer-excellance-academy.onrender.com/api/notes", payload);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/notes`, payload);
         showToast("Note created successfully");
       }
 
@@ -140,7 +140,7 @@ const AdminNotes = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this note?")) return;
     try {
-      await axios.delete(`https://computer-excellance-academy.onrender.com/api/notes/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/notes/${id}`);
       showToast("Note deleted");
       fetchNotes();
     } catch {

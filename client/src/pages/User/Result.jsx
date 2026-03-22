@@ -32,7 +32,7 @@ const Result = () => {
     try {
       setFetching(true);
       const res = await axios.get(
-        `https://computer-excellance-academy.onrender.com/api/exams/examinee-result/${userId}`
+        `${import.meta.env.VITE_API_URL}/api/exams/examinee-result/${userId}`
       );
 
       setResults(

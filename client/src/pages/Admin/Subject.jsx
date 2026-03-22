@@ -36,7 +36,7 @@ const Subject = () => {
   const fetchSubjects = async () => {
     try {
       setFetching(true);
-      const res = await axios.get("https://computer-excellance-academy.onrender.com/api/subject");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/subject`);
       setSubjects(res?.data?.data || []);
     } catch (error) {
       showToast("Failed to load subjects", "error");
@@ -90,10 +90,10 @@ const Subject = () => {
       setSaving(true);
 
       if (isEditing) {
-        await axios.put(`https://computer-excellance-academy.onrender.com/api/subject/${editingId}`, form);
+        await axios.put(`${import.meta.env.VITE_API_URL}/api/subject/${editingId}`, form);
         showToast("Subject updated successfully");
       } else {
-        await axios.post("https://computer-excellance-academy.onrender.com/api/subject", form);
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/subject`, form);
         showToast("Subject added successfully");
       }
 
@@ -111,7 +111,7 @@ const Subject = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`https://computer-excellance-academy.onrender.com/api/subject/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/subject/${id}`);
       showToast("Subject deleted successfully");
       fetchSubjects();
     } catch (error) {

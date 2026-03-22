@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Home",      href: "/",        icon: "🏠" },
@@ -46,7 +46,7 @@ export const Notes = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("https://computer-excellance-academy.onrender.com/api/course");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/course`);
         const data = await res.json();
         setCourses(data?.data || []);
       } catch {}
@@ -58,7 +58,7 @@ export const Notes = () => {
     const fetchNotes = async () => {
       try {
         setLoading(true);
-        let url = "https://computer-excellance-academy.onrender.com/api/notes/user?";
+        let url = `${import.meta.env.VITE_API_URL}/api/notes/user?`;
         if (filterCourse)  url += `courseId=${filterCourse}&`;
         if (filterSubject) url += `subject=${filterSubject}`;
         const res  = await fetch(url);
@@ -236,24 +236,24 @@ export const Notes = () => {
 
       {/* Navbar */}
       <nav className={`cea-nav ${scrollY > 15 ? "scrolled" : "top"}`}>
-        <a href="/" className="nav-logo">
+        <Link to="/" className="nav-logo">
           <div className="nav-logo-orb">💻</div>
           <div className="nav-logo-text">
             <span className="nav-logo-main">Computer Excellence Academy</span>
             <span className="nav-logo-sub">Digital Learning Platform</span>
             <div className="nav-logo-line" />
           </div>
-        </a>
+        </Link>
         <ul className="nav-menu">
           {navLinks.map(({ label, href, icon, badge }) => (
             <li key={href}>
-              <a href={href} className={window.location.pathname === href ? "active" : ""}>
+              <Link to={href} className={window.location.pathname === href ? "active" : ""}>
                 {icon} {label}
                 {badge && <span className="nav-badge">{badge}</span>}
-              </a>
+              </Link>
             </li>
           ))}
-          <li><a href="#" style={{ color: "#f7156a" }}><span className="live-dot" /> Live Class</a></li>
+          <li><Link to="#" style={{ color: "#f7156a" }}><span className="live-dot" /> Live Class</Link></li>
         </ul>
         <div className="nav-right">
           <div className="support-pill"><div className="support-dot" /><span className="support-label">Support Open</span></div>
@@ -267,7 +267,7 @@ export const Notes = () => {
       <div className={`mobile-drawer ${menuOpen ? "open" : ""}`}>
         <div className="mob-links">
           {navLinks.map(({ label, href, icon }) => (
-            <a key={href} href={href} className="mob-link">{icon} {label}</a>
+            <Link key={href} to={href} className="mob-link">{icon} {label}</Link>
           ))}
         </div>
         <div className="mob-actions">
@@ -431,19 +431,19 @@ export const Notes = () => {
           <div>
             <div className="ft-h">Quick Links</div>
             <ul className="ft-l">
-              <li><a href="/">Home</a></li>
-              <li><a href="/courses">Courses</a></li>
-              <li><a href="/notes">Notes</a></li>
-              <li><a href="/aboutus">About Us</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/courses">Courses</Link></li>
+              <li><Link to="/notes">Notes</Link></li>
+              <li><Link to="/aboutus">About Us</Link></li>
             </ul>
           </div>
           <div>
             <div className="ft-h">Access</div>
             <ul className="ft-l">
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Register</a></li>
-              <li><a href="/userdash/notes">My Notes</a></li>
-              <li><a href="/userdash/courses">Buy Batch</a></li>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/register">Register</Link></li>
+              <li><Link to="/userdash/notes">My Notes</Link></li>
+              <li><Link to="/userdash/courses">Buy Batch</Link></li>
             </ul>
           </div>
           <div>
