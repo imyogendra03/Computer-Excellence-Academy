@@ -115,13 +115,27 @@ const AIAssistantWidget = () => {
         language,
         imageData: userEntry.image || "",
         history: messages.slice(-5).map(m => ({ role: m.role, text: m.text }))
+      }, {
+        timeout: 30000,
+        headers: { 'Content-Type': 'application/json' }
       });
 
       const answer = response?.data?.data?.answer || "I apologize, but I am unable to process that at the moment.";
       setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, role: "assistant", text: answer }]);
       if (autoSpeak) speakText(answer);
-    } catch (e) {
-      setMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", text: "System sync failure. Please verify connection." }]);
+    } catch (error) {
+      console.error("AI Assistant Error:", error);
+      let errorMessage = "System sync failure. Please verify connection.";
+      
+      if (error.response) {
+        errorMessage = error.response.data?.message || error.response.statusText || errorMessage;
+      } else if (error.request) {
+        errorMessage = "Network error: Unable to reach server. Check your internet connection.";
+      } else if (error.message === "timeout of 30000ms exceeded") {
+        errorMessage = "Request timeout. Server is taking too long to respond.";
+      }
+      
+      setMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", text: errorMessage }]);
     } finally { setSending(false); }
   };
 
@@ -186,15 +200,17 @@ const AIAssistantWidget = () => {
                   </div>
                   <div className="d-flex gap-2">
                      <button 
+                       type="button"
                        className={`ai-header-btn ${autoSpeak ? 'active' : ''}`} 
-                       onClick={() => setAutoSpeak(!autoSpeak)}
+                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); setAutoSpeak(!autoSpeak); }}
                        title="Toggle auto-speak"
                      >
                        <FiVolume2 />
                      </button>
                      <button 
+                       type="button"
                        className="ai-header-btn" 
-                       onClick={() => setOpen(false)}
+                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen(false); }}
                        title="Close assistant"
                      >
                        <FiX />

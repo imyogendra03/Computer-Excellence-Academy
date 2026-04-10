@@ -8,8 +8,23 @@ const sanitizeRequest = require("./middlewares/sanitizeRequest");
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173",
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://computer-excellence-academy.vercel.app",
+  "https://www.computerexcellenceacademy.in",
+  "https://computerexcellenceacademy.in",
+];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -126,6 +141,7 @@ app.use("/api/message", require("./routes/messageRoute"));
 app.use("/api/content", require("./routes/contentRoute"));
 app.use("/api/progress", require("./routes/progressRoute"));
 app.use("/api/user", require("./routes/userContentRoute"));
+app.use("/api/assistant", require("./routes/assistantRoute"));
 
 const { verifyToken } = require("./middlewares/authMiddleware");
 

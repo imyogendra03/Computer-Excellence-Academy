@@ -20,7 +20,10 @@ const AdminLogin = () => {
     setLoading(true);
     setErrorMessage("");
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`, form);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`, form, {
+        timeout: 15000,
+        headers: { 'Content-Type': 'application/json' }
+      });
       if (response.data.message === "Login Successfully") {
         localStorage.setItem("adminToken", response.data.token);
         if (response.data.refreshToken) localStorage.setItem("adminRefreshToken", response.data.refreshToken);
@@ -32,7 +35,22 @@ const AdminLogin = () => {
         setErrorMessage("Authentication failed.");
       }
     } catch (error) {
-      setErrorMessage(error?.response?.data?.message || "Internal access error");
+      console.error("Admin Login Error:", error);
+      let errorMsg = "Internal access error";
+      
+      if (error.response?.status === 404) {
+        errorMsg = "Admin not found. Check your email.";
+      } else if (error.response?.status === 400) {
+        errorMsg = error.response.data?.message || "Invalid credentials.";
+      } else if (error.code === "ECONNABORTED") {
+        errorMsg = "Connection timeout. Server is not responding.";
+      } else if (!error.response) {
+        errorMsg = "Network error. Check your internet connection.";
+      } else {
+        errorMsg = error.response?.data?.message || errorMsg;
+      }
+      
+      setErrorMessage(errorMsg);
     } finally {
       setLoading(false);
     }
