@@ -13,7 +13,12 @@
     "start": "node index.js",
     "prod": "node server.js"
   },
-  "keywords": ["education", "courses", "nodejs", "express"],
+  "keywords": [
+    "education",
+    "courses",
+    "nodejs",
+    "express"
+  ],
   "author": "Computer Excellence Academy",
   "license": "MIT",
   "dependencies": {
@@ -28,7 +33,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.23.0",
     "multer": "^2.0.2",
-    "nodemailer": "^7.0.14",
+    "nodemailer": "^8.0.5",
     "pdf-parse": "^2.4.5",
     "razorpay": "^2.9.6"
   },
@@ -38,7 +43,6 @@
   "overrides": {
     "path-to-regexp": "^6.2.2",
     "picomatch": "^4.0.2",
-    "brace-expansion": "^2.0.1",
-    "nodemailer": "^7.0.14"
+    "brace-expansion": "^2.0.1"
   }
 }
