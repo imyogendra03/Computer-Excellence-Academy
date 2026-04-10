@@ -149,14 +149,22 @@ const AIAssistantWidget = () => {
         .ai-input-box { display: flex; align-items: end; gap: 12px; background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 24px; padding: 10px 10px 10px 20px; transition: 0.3s; }
         .ai-input-box:focus-within { border-color: #6366f1; background: #fff; box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
         .ai-textarea { flex: 1; border: none; background: transparent; outline: none; padding: 8px 0; font-size: 0.95rem; min-height: 24px; max-height: 120px; }
-        .ai-btn-send { width: 44px; height: 44px; border-radius: 16px; background: #6366f1; color: #fff; border: none; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 8px 16px rgba(99,102,241,0.3); }
+        .ai-btn-send { width: 44px; height: 44px; border-radius: 16px; background: #6366f1; color: #fff; border: none; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 8px 16px rgba(99,102,241,0.3); cursor: pointer; }
         .ai-btn-send:hover { transform: scale(1.05); background: #4f46e5; }
+        .ai-btn-send:disabled { opacity: 0.6; cursor: not-allowed; }
+        
+        .ai-header-btn { background: none; border: none; color: #fff; opacity: 0.5; cursor: pointer; padding: 8px 12px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; font-size: 18px; width: 44px; height: 44px; border-radius: 12px; }
+        .ai-header-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+        .ai-header-btn.active { opacity: 1; background: rgba(99,102,241,0.3); }
         
         .tool-pill { background: #eef2ff; color: #6366f1; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; border: 1px solid transparent; }
         .tool-pill:hover { border-color: #6366f1; background: #fff; }
         .tool-pill.active { background: #6366f1; color: #fff; }
         
-        @media (max-width: 500px) { .ai-hud { right: 12px; bottom: 84px; width: calc(100vw - 24px); height: calc(100vh - 100px); border-radius: 28px; } }
+        @media (max-width: 500px) { 
+          .ai-hud { right: 12px; bottom: 84px; width: calc(100vw - 24px); height: calc(100vh - 100px); border-radius: 28px; } 
+          .ai-header-btn { width: 40px; height: 40px; font-size: 16px; }
+        }
       `}</style>
 
       <motion.div className="ai-orb shadow-2xl" onClick={() => setOpen(!open)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -177,8 +185,20 @@ const AIAssistantWidget = () => {
                     <p className="small opacity-60 mb-0 fw-bold">Professional Learning Engine</p>
                   </div>
                   <div className="d-flex gap-2">
-                     <button className={`btn btn-link p-2 text-white opacity-40 hover-opacity-100 ${autoSpeak ? 'opacity-100' : ''}`} onClick={() => setAutoSpeak(!autoSpeak)}><FiVolume2 /></button>
-                     <button className="btn btn-link p-2 text-white opacity-40 hover-opacity-100" onClick={() => setOpen(false)}><FiX /></button>
+                     <button 
+                       className={`ai-header-btn ${autoSpeak ? 'active' : ''}`} 
+                       onClick={() => setAutoSpeak(!autoSpeak)}
+                       title="Toggle auto-speak"
+                     >
+                       <FiVolume2 />
+                     </button>
+                     <button 
+                       className="ai-header-btn" 
+                       onClick={() => setOpen(false)}
+                       title="Close assistant"
+                     >
+                       <FiX />
+                     </button>
                   </div>
                </div>
                <div className="d-flex gap-3 mt-4">

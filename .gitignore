@@ -18,6 +18,7 @@ server/verify_pw.js
 server/setupAdmin.js
 client/public/vite.svg
 client/README.md
+testLogin.js
 
 # Build artifacts
 client/.dist
