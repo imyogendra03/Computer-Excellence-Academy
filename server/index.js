@@ -13,6 +13,10 @@ const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173",
   "http://localhost:5173",
   "http://localhost:3000",
+  "https://computer-excellence-academy.vercel.app",
+  "https://www.computerexcellenceacademy.in",
+  "https://computerexcellenceacademy.in",
+  "https://computer-excellence-academy.onrender.com",
 ];
 app.use(cors({
   origin: (origin, callback) => {
@@ -20,6 +24,9 @@ app.use(cors({
     return callback(new Error("Not allowed by CORS"));
   },
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  maxAge: 3600
 }));
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(express.json({ limit: "12mb" }));

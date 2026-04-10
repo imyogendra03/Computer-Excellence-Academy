@@ -20,8 +20,9 @@ const AdminLogin = () => {
     setLoading(true);
     setErrorMessage("");
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`, form, {
-        timeout: 15000,
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await axios.post(`${apiUrl}/api/admin/login`, form, {
+        timeout: 20000,
         headers: { 'Content-Type': 'application/json' }
       });
       if (response.data.message === "Login Successfully") {
@@ -36,16 +37,23 @@ const AdminLogin = () => {
       }
     } catch (error) {
       console.error("Admin Login Error:", error);
-      let errorMsg = "Internal access error";
+      let errorMsg = "Unable to reach server";
       
       if (error.response?.status === 404) {
         errorMsg = "Admin not found. Check your email.";
       } else if (error.response?.status === 400) {
         errorMsg = error.response.data?.message || "Invalid credentials.";
+      } else if (error.response?.status === 403) {
+        errorMsg = "Access denied. Contact administrator.";
       } else if (error.code === "ECONNABORTED") {
-        errorMsg = "Connection timeout. Server is not responding.";
+        errorMsg = "Connection timeout. Server is taking too long to respond.";
+      } else if (error.message === "Network Error") {
+        errorMsg = "Network error. If you're on production (vercel.app), please check that the backend server is running on Render.";
       } else if (!error.response) {
-        errorMsg = "Network error. Check your internet connection.";
+        const apiUrl = import.meta.env.VITE_API_URL || "production server";
+        errorMsg = `Cannot reach server at ${apiUrl}. Check your internet connection or server status.`;
+      } else if (error.response?.status >= 500) {
+        errorMsg = "Server error. Please try again later.";
       } else {
         errorMsg = error.response?.data?.message || errorMsg;
       }
